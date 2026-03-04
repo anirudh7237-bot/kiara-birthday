@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Celebrate Kiara's Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      color: #ff4081;
+      font-size: 3em;
+      margin-top: 50px;
+    }
+    p {
+      font-size: 1.4em;
+      color: #333;
+      margin: 20px auto;
+      width: 75%;
+      line-height: 1.6em;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Dear Kiara, Happy Birthday! 🎉</h1>
+  <p>
+    Hey! Kiara aaj tumhara special din hai – <b>5 March</b>.  
+    Tumhara birthday hai, tumhe iss duniya mein aaye hue <b>5,479 din</b>  
+    ya <b>7,889,760 minute</b> ho gaye! 🌸  
+    Tum meri life ki ek bohot pyari aur important person ho.  
+    Tumhari smile meri life ko aur bright bana deti hai.  
+    Pata nahi lekin tumhara birthday mujhe bhi thoda special feel karata hai.  
+    Wish you a lots of happiness.  
+    Once again, <b>Happy Birthday Kiara!</b> 💖  
+  </p>
+
+  <canvas id="confetti"></canvas>
+
+  <script>
+    // Confetti animation
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const confettiPieces = [];
+    const colors = ['#ff4081', '#ffd700', '#00e676', '#2196f3', '#ff5722'];
+
+    function ConfettiPiece() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height - canvas.height;
+      this.size = Math.random() * 8 + 2;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.speed = Math.random() * 3 + 2;
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 150; i++) {
+        confettiPieces.push(new ConfettiPiece());
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiPieces.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+    }
+
+    function updateConfetti() {
+      confettiPieces.forEach(p => {
+        p.y += p.speed;
+        if (p.y > canvas.height) {
+          p.y = -10;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    function animate() {
+      drawConfetti();
+      updateConfetti();
+      requestAnimationFrame(animate);
+    }
+
+    createConfetti();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
